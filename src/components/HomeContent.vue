@@ -11,17 +11,16 @@
 </style>
 
 <template>
-  <div id="homeContent" >
-    <transition-group appear tag="ul"  >
+  <div id="homeContent">
+    <transition-group appear tag="ul">
       <contentCard
         :key="data.articleId"
         v-for="(data) in this.$store.state.newarticle"
         :contentdata="data"
         draggable="true"
-     
       />
     </transition-group>
-    <pagination v-show="this.$store.state.pagiflag" :artlength="datalength"/>
+    <pagination v-show="this.$store.state.pagiflag" :artlength="datalength" />
   </div>
 </template>
 
@@ -39,8 +38,7 @@ export default {
       //datalength:Number,
     };
   },
-  methods: {
-  },
+  methods: {},
   computed: {
     datalength() {
       return this.$store.getters.slicedata;
@@ -57,8 +55,11 @@ export default {
   watch: {
     listenstage: function(n, o) {
       this.$store.commit("getdatalist");
-      if (this.$store.state.ArticleData) {
-        this.$store.commit("saveStorageData");
+      this.$store.commit("saveStorageData");
+    },
+    datalength: function(n, o) {
+      if (n > 5) {
+        this.$store.commit("getdatalist");
       }
     }
   }

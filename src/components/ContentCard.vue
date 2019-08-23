@@ -61,18 +61,17 @@
       }
     }
     .contentArticle {
-      padding: 0 0% 0px;
-      //background-color: aliceblue;
-      span {
-        padding: 0 2% 0;
+      hyphens: auto;
+      padding: 0 2% 0px;
+      text-indent: 30px;
+      text-align: justify;
+      line-height: 20px;
+      font-size: 14px;
+      hr {
+        border: 6px solid #ec4848;
       }
-      p {
-        text-indent: 30px;
-        text-align: justify;
-        line-height: 20px;
-        font-size: 14px;
-        color: rgb(146, 153, 129);
-      }
+
+      color: rgb(146, 153, 129);
     }
   }
   .moreinfobtn {
@@ -128,8 +127,8 @@
   <div id="contentCard">
     <div ref="mainContentHeight" class="mainContent" v-ripple>
       <div class="contentTitle">
-        <h2 ref="articaltitle">{{contentdata.articleTitle}}</h2>
-        <p>作者:{{contentdata.articleName}}</p>
+        <h2 ref="articaltitle" v-html="contentdata.articleTitle"></h2>
+        <p v-html="contentdata.articleName"></p>
         <div class="headicon">
           <i class="icon iconfont icon-desktop" @click="fullscreen()"></i>
         </div>

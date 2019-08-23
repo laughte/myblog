@@ -16,32 +16,25 @@ export default new Vuex.Store({
     // changesideflag (state) {
     //   state.sideflag = !state.sideflag
     // },
-    change () {
+    change() {
       this.state.blackboardflag = !this.state.blackboardflag
       this.state.homeflag = !this.state.homeflag
     },
-    addArticleItem (state, data) {
+    addArticleItem(state, data) {
       let jsonparse = JSON.parse(data)
       state.ArticleData.unshift(jsonparse)
     },
-    ReadStoragedata () {
+    ReadStoragedata() {
       if (localStorage.getItem('msgboard')) {
         let oldarray = localStorage.getItem('msgboard')
-        this.state.ArticleData = this.state.ArticleData.concat(JSON.parse(oldarray))
+        this.state.ArticleData = JSON.parse(oldarray)
       }
     },
-    saveStorageData (state) {
-      let allArry = state.ArticleData
-      // let n = [allArry[0]]
-      // for (let i = 0; i < allArry.length; i++) {
-      //   if (allArry.indexOf(allArry[i]) === i) {
-      //     n.push(allArry[i])
-      //   }
-      // }
-      let itemArray = JSON.stringify(allArry)
+    saveStorageData(state) {
+      let itemArray = JSON.stringify(state.ArticleData)
       localStorage.setItem('msgboard', itemArray)
     },
-    deleteItem (state, i) {
+    deleteItem(state, i) {
       // console.log(i)
       let adata = state.ArticleData
       adata.forEach((element, e) => {
@@ -50,15 +43,15 @@ export default new Vuex.Store({
         }
       })
     },
-    getdatalist (state) {
+    getdatalist(state) {
       state.newarticle = state.ArticleData.slice(0, 5)
     },
-    splicedata (state, i) {
+    splicedata(state, i) {
       let a = (i - 1) * 5
       let b = i * 5
       state.newarticle = state.ArticleData.slice(a, b)
     },
-    serchData (state, keywords) {
+    serchData(state, keywords) {
       console.log(keywords)
       let newlist = []
       state.ArticleData.forEach(element => {
@@ -73,12 +66,11 @@ export default new Vuex.Store({
   getters: {
     slicedata: (state) => {
       let allcont = state.ArticleData.length
-      console.log(allcont)
+      // console.log(allcont)
       let cont = Math.ceil(allcont / 5)
       allcont > 5 ? state.pagiflag = true : state.pagiflag = false
       return cont
     }
   },
-  actions: {
-  }
+  actions: {}
 })

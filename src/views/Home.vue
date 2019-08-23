@@ -48,7 +48,7 @@ a {
 .v-enter,
 .v-leave-to {
   opacity: 0;
-  transform: translateX(300px);
+  transform: translateX(100px);
 }
 .v-enter-active,
 .v-leave-active {
@@ -56,6 +56,7 @@ a {
 }
 .v-move {
   transition: all 0.6s ease;
+  // position: absolute !important;
 }
 .v-leave-active {
   position: absolute !important;

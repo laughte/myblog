@@ -166,27 +166,33 @@
     <form>
       <div class="title">
         <span class="titlelabel">标题:</span>
-        <input type="text" class="articletitle" v-model="articleTitle">
+        <input :style="{color:colordata}" type="text" class="articletitle" v-model="articleTitle" />
       </div>
       <div class="auther">
         <span class="namelabel">作者:</span>
-        <input type="text" class="articlename" v-model="articleName">
+        <input type="text" :style="{color:colordata}" class="articlename" v-model="articleName" />
       </div>
 
-      <textarea class="comment" ref="textareacom" placeholder="随便写点什么吧!" v-model="articleComment"></textarea>
-      
-      <input class="btn" @click="submitdata" type="button" value="提交">
+      <textarea
+        class="comment"
+        :style="{color:colordata}"
+        ref="textareacom"
+        placeholder="随便写点什么吧!"
+        v-model="articleComment"
+      ></textarea>
+
+      <input class="btn" @click="submitdata" type="button" value="提交" />
     </form>
     <div class="c-tool">
       <div :key="i" v-for="i in 7">
-        <colorstyle @setclasscolor="setclass" ref="colorsetool" :index="i"/>
+        <colorstyle @setclasscolor="setclass" ref="colorsetool" :index="i" />
       </div>
       <span class="icon iconfont icon-sync" @click="changecolor"></span>
     </div>
   </div>
 </template>
 <script>
-import EditorJS from '@editorjs/editorjs'; 
+import EditorJS from "@editorjs/editorjs";
 
 import colorstyle from "./ColorStyle";
 
@@ -208,6 +214,8 @@ export default {
       articleName: "",
       articleTitle: "",
       setColorComment: "",
+      setcolorname: "",
+      setcolortitle: "",
       colordata: "",
       savestorage: []
     };
@@ -275,19 +283,23 @@ export default {
       return hashcode;
     },
     submitdata() {
-      this.setColorComment = `<span style="color:${this.colordata}">${
-        this.articleComment
-      }</span>`;
+      this.setColorComment = `<span style="color:${this.colordata}">${this.articleComment}</span>`;
+
+      this.setcolortitle = `<span style="color:${this.colordata}">${this.articleTitle}</span>`;
+
+      this.setcolorname = `<span style="color:${this.colordata}">作者:${this.articleName}</span>`;
+
       let date = new Date();
-      let timenow =`${date.getFullYear()}-${date.getMonth()+1}-${date.getDate()}&${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`
+      let timenow = `${date.getFullYear()}-${date.getMonth() +
+        1}-${date.getDate()}&${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`;
       let hashcode = this.gethashcode();
       if (this.articleComment !== "") {
         let data = {
           // articleLable:
           articleId: hashcode,
           articleComment: this.setColorComment,
-          articleName: this.articleName,
-          articleTitle: this.articleTitle,
+          articleName: this.setcolorname,
+          articleTitle: this.setcolortitle,
           articleTime: timenow,
           articleLike: 0,
           articleCollect: 0,
@@ -304,7 +316,7 @@ export default {
     },
 
     setclass(cc) {
-      this.$refs.textareacom.style.color = cc;
+      // this.$refs.textareacom.style.color = cc;
       this.colordata = cc;
       // console.log(this.$refs);
     },
@@ -315,5 +327,16 @@ export default {
       });
     }
   }
+  // computed: {
+  //   linstencolordata() {
+  //     return this.colordata;
+  //   }
+  // },
+  // watch: {
+  //   linstencolordata: function(n, o) {
+  //     // debugger;
+
+  //   }
+  // }
 };
 </script>
